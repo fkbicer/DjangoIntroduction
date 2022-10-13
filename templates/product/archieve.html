@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{{ year }} yılı  {{ month }} ayının arşiv sayfası. <br><br>
+
+{% if products %}
+    <table>
+    {% for product in products %}
+    <tr>
+    <td><a href="{% url 'product-detail' product.id%}"> Ürünün Adı : </a></td> <td> {{product.name | upper }}   </td>
+    <td>Ürün İçeriği :  </td> <td>{{product.content}}   </td>
+</tr>
+
+    {% endfor %}
+</table>
+
+{% else %}
+    Ürün Bulunamadı. <br><br>
+    2022/9 ürün arşivlerine erişmek için <a href="{% url 'product-archieve' 2022 9%}"> tıklayınız.</a>
+{% endif %}
+</body>
+</html>
