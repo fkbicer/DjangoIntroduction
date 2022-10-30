@@ -26,7 +26,8 @@ class Product(models.Model):
     stock_count = models.PositiveSmallIntegerField(verbose_name='stok adedi')
     price = models.DecimalField(verbose_name='ürün fiyatı', decimal_places=2, max_digits=10)
     slug = models.SlugField(unique=True, editable=False)  # url'ler için kullanılır, unique olması gerekir.
-    author = models.ForeignKey(User, verbose_name='Sahip', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, verbose_name='Sahip', on_delete=models.CASCADE,
+                               related_name='products', related_query_name='product')
 
     class Meta:
         db_table = 'urunler'
@@ -43,15 +44,20 @@ class Product(models.Model):
             self, force_insert=False, force_update=False, using=None, update_fields=None
     ):
         if not self.id:
-            self.slug= slugify(self.name)
-            
+            self.slug = slugify(self.name)
+
             for slug_id in itertools.count(1):
-                if not Product.objects.filter(slug=self.slug).exist():
+                if not Product.objects.filter(slug=self.slug).exists():
                     break
                 self.slug = '%s-%d' % (self.slug, slug_id)
-        
+
         super(Product, self).save()
 
     @property  # sınıflarımızdaki methodlarımızın property gibi çalışmasını sağlayan decorator
     def summary(self):
         return self.content[:50]
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+    product = models.ManyToManyField(Product, related_name='categories', related_query_name='category')

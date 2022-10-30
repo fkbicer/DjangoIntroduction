@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods, require_GET, require_POST
 from learning.models import Product
+from django.db import transaction
 
 
 @require_http_methods(['GET', 'POST'])
@@ -12,6 +13,7 @@ def product(request, pk=None):
     return render(request=request, template_name='product/detail.html', context=content)
 
 
+@transaction.atomic
 def products(request):
     querySet = Product.objects.all()
     content = {
@@ -21,7 +23,6 @@ def products(request):
 
 
 def product_archieve(request, year=None, month=None):
-
     queryset = Product.objects.filter(created__year=year, created__month=month)
     content = {
         'month': month,
