@@ -1,0 +1,1 @@
+This is Django Project that 've developed during learning as a foundation
