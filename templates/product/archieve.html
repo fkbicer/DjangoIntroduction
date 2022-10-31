@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'layout/base.html' %}
+
+{% block title %}
+Arşiv Sayfası.
+{% endblock %}
+
+{% block content %}
 
 {{ year }} yılı  {{ month }} ayının arşiv sayfası. <br><br>
 
@@ -23,5 +23,5 @@
     Ürün Bulunamadı. <br><br>
     2022/9 ürün arşivlerine erişmek için <a href="{% url 'product-archieve' 2022 9%}"> tıklayınız.</a>
 {% endif %}
-</body>
-</html>
+
+{% endblock %}

@@ -1,13 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'layout/base.html' %}
 
-Ürün Adı : {{product_detail.name}} <br><br>
-Ürün Açıklaması : {{product_detail.content}} <br><br>
+{% block title %}
+    Ürün Detay
+{% endblock %}
+
+
+{% block content %}
+Ürün Detay Sayfası <br><br>
+
+Ürün Adı : {{product_detail.name}} <br>
+Ürün Açıklaması : {{product_detail.content}} <br>
 Fiyat : {{product_detail.price}}
-</body>
-</html>
+
+{% endblock %}

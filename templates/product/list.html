@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'layout/base.html' %}
+
+{% block title %}
+    Ürün Listeleme
+{% endblock %}
+
+{% block content %}
 
 <table>
     {% for product in products %}
@@ -15,6 +15,12 @@
 
     {% endfor %}
 </table>
+
+{% endblock %}
+
+<!--
+BURAYA FOOTER GELSİN
+-->
 
 </body>
 </html>
