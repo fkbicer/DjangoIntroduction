@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.views.decorators.http import require_http_methods, require_GET, require_POST
 from learning.models import Product
 from django.db import transaction
+from django.views import View
+from django.views.generic import ListView, DetailView
 
 
 @require_http_methods(['GET', 'POST'])
@@ -30,3 +32,30 @@ def product_archieve(request, year=None, month=None):
         'products': queryset
     }
     return render(request=request, template_name='product/archieve.html', context=content)
+
+
+class ProductView(View):
+    def get(self, request):
+        product_list = Product.objects.all()
+
+        content = {
+            'products': product_list
+        }
+
+        return render(request=request, template_name='product/list.html', context=content)
+
+    def post(self, request):
+        pass
+
+
+class ProductListView(ListView):
+    model = Product  # Product modeli ile bağlandı.
+    template_name = 'product/list.html'
+    context_object_name = 'products' # ListView'deki veriler, template'e default olarak 'object_list' olarak döner . Bunu template'deki isimlendirmemize göre set etmeliyiz.
+
+    def get_queryset(self):
+        return Product.objects.all()[:1]
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'product/detail.html'
+    context_object_name = 'product_detail'
