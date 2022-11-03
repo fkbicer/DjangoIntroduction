@@ -1,0 +1,25 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}
+  İletişim Formu
+{% endblock %}
+
+{% block top %}
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">İletişim!</h1>
+      <p>Bu sayfadan bizimle iletişim geçebilirsiniz.</p>
+
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+<form method = 'post' action="">
+ {% csrf_token %} <!-- Formlarda token olusturmak zorundayız.-->
+  {{form.as_ul}}
+<input type ="submit" value="Gönder">
+</form>
+{% endblock %}
+
