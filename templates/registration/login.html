@@ -9,17 +9,28 @@
   <div class="jumbotron">
     <div class="container">
       <h1 class="display-3">Üye Girişi!</h1>
-      <p>Bu sayfadan  giriş gerçekleştirebilirsiniz.</p>
+      <p>
+          {% if user.is_authenticated %}
+            Merhaba {{ user.username}}, logged-in oldugunuz icin giris yapamazsınız.
+          {% else %}
+            Aşağıdaki form'u kullanarak üye girişi yapabilirsiniz.
+          {% endif %}
+      </p>
 
     </div>
   </div>
 {% endblock %}
 
 {% block content %}
-<form method = 'post' action="">
- {% csrf_token %} <!-- Formlarda token olusturmak zorundayız.-->
-  {{form.as_ul}}
-<input type ="submit" value="Giriş">
-</form>
+    {% if user.is_authenticated %}
+        Çıkış yapmak için <a href = "{% url 'logout'%}">tıklayın</a>
+    {% else %}
+        <form method = 'post' action="">
+        {% csrf_token %} <!-- Formlarda token olusturmak zorundayız.-->
+        {{form.as_ul}}
+        <input type ="submit" value="Giriş">
+        </form>
+    {% endif %}
+
 {% endblock %}
 
