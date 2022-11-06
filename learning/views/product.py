@@ -54,7 +54,7 @@ class ProductListView(ListView):
     context_object_name = 'products' # ListView'deki veriler, template'e default olarak 'object_list' olarak döner . Bunu template'deki isimlendirmemize göre set etmeliyiz.
 
     def get_queryset(self):
-        return Product.objects.all()[:1]
+        return Product.objects.all()
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'product/detail.html'
